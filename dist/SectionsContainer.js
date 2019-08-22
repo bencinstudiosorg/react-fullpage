@@ -55,13 +55,13 @@ var SectionsContainer = function (_Component) {
       _this.removeActiveClass();
 
       var hash = window.location.hash.substring(1);
-      var activeLinks = document.querySelectorAll('a[href="#' + hash + '"]');
+        var activeLinks = document.querySelectorAll(hash.includes("#") ? 'a[href="' + hash + '"]' : 'a[href="#' + hash + '"]');
 
       for (var i = 0; i < activeLinks.length; i++) {
         activeLinks[i].className = activeLinks[i].className + (activeLinks[i].className.length > 0 ? ' ' : '') + ('' + _this.props.activeClass);
       }
     }, _this.removeActiveClass = function () {
-      var activeLinks = document.querySelectorAll('a:not([href="#' + _this.props.anchors[_this.state.activeSection] + '"])');
+        var activeLinks = document.querySelectorAll(_this.props.anchors[_this.state.activeSection].includes("#") ? 'a:not([href="' + _this.props.anchors[_this.state.activeSection] + '"])' : 'a:not([href="#' + _this.props.anchors[_this.state.activeSection] + '"])');
 
       for (var i = 0; i < activeLinks.length; i++) {
         activeLinks[i].className = activeLinks[i].className.replace(/\b ?active/g, '');
@@ -187,7 +187,7 @@ var SectionsContainer = function (_Component) {
             var hash = that.props.anchors[direction];
 
             if (!that.props.anchors.length || hash) {
-              window.location.hash = '#' + hash;
+              window.location.hash = hash.includes('#') ? hash : '#' + hash;
             }
 
             that.handleSectionTransition(direction);
@@ -207,7 +207,7 @@ var SectionsContainer = function (_Component) {
       var hash = _this.props.anchors[index];
 
       if (!_this.props.anchors.length || hash) {
-        window.location.hash = '#' + hash;
+        window.location.hash = hash.includes("#") ? hash : '#' + hash;
       }
     }, _this.handleScrollCallback = function () {
       if (_this.props.scrollCallback) {
@@ -248,7 +248,7 @@ var SectionsContainer = function (_Component) {
         };
 
         return _react2.default.createElement('a', {
-          href: '#' + link,
+          href: link.includes("#") ? link : '#' + link,
           key: index,
           className: _this.props.navigationAnchorClass || 'Navigation-Anchor',
           style: _this.props.navigationAnchorClass ? null : anchorStyle

@@ -76,7 +76,7 @@ class SectionsContainer extends Component {
     this.removeActiveClass();
 
     let hash = window.location.hash.substring(1);
-    let activeLinks = document.querySelectorAll(`a[href="#${hash}"]`);
+    let activeLinks = document.querySelectorAll(hash.includes("#") ? `a[href="${hash}"]` `a[href="#${hash}"]`);
 
     for (let i = 0; i < activeLinks.length; i++) {
       activeLinks[i].className =
@@ -88,7 +88,9 @@ class SectionsContainer extends Component {
 
   removeActiveClass = () => {
     let activeLinks = document.querySelectorAll(
-      `a:not([href="#${this.props.anchors[this.state.activeSection]}"])`
+        this.props.anchors[this.state.activeSection].includes("#")
+            ? `a:not([href="${this.props.anchors[this.state.activeSection]}"])`
+            : `a:not([href="#${this.props.anchors[this.state.activeSection]}"])`
     );
 
     for (let i = 0; i < activeLinks.length; i++) {
@@ -273,7 +275,7 @@ class SectionsContainer extends Component {
             let hash = that.props.anchors[direction];
 
             if (!that.props.anchors.length || hash) {
-              window.location.hash = '#' + hash;
+                window.location.hash = hash.includes('#') ? hash : '#' + hash;
             }
 
             that.handleSectionTransition(direction);
@@ -300,7 +302,7 @@ class SectionsContainer extends Component {
     const hash = this.props.anchors[index];
 
     if (!this.props.anchors.length || hash) {
-      window.location.hash = '#' + hash;
+      window.location.hash = hash.includes('#') ? hash : '#' + hash;
     }
   }
 
@@ -348,7 +350,7 @@ class SectionsContainer extends Component {
 
       return (
         <a
-          href={`#${link}`}
+          href={link.includes("#") ? `${link}`: `#${link}`}
           key={index}
           className={this.props.navigationAnchorClass || 'Navigation-Anchor'}
           style={this.props.navigationAnchorClass ? null : anchorStyle}
