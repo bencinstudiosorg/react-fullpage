@@ -61,13 +61,13 @@ var SectionsContainer = function (_Component) {
         activeLinks[i].className = activeLinks[i].className + (activeLinks[i].className.length > 0 ? ' ' : '') + ('' + _this.props.activeClass);
       }
 
-       if (!hash && _this.props.anchors != null && _this.props.anchors.length > 0) {
-           var activeLinks = document.querySelectorAll('a[href="' + window.location.pathname + '#' +
-               _this.props.anchors[0] + '"]');
+      if (_this.props.anchors != null && _this.props.anchors.length > 0 && (!hash || hash.substring(1) === _this.props.anchors[0])) {
+        var activeLinks = document.querySelectorAll('a[href="' + window.location.pathname + '#' +
+          _this.props.anchors[0] + '"]');
 
-           for (var i = 0; i < activeLinks.length; i++) {
-               activeLinks[i].className = activeLinks[i].className + (activeLinks[i].className.length > 0 ? ' ' : '') + ('' + _this.props.activeClass);
-           }
+        for (var i = 0; i < activeLinks.length; i++) {
+           activeLinks[i].className = activeLinks[i].className + (activeLinks[i].className.length > 0 ? ' ' : '') + ('' + _this.props.activeClass);
+        }
       }
     }, _this.removeActiveClass = function () {
         var activeLinks = document.querySelectorAll('a:not([href="#' + _this.props.anchors[_this.state.activeSection] + '"])');
@@ -265,7 +265,8 @@ var SectionsContainer = function (_Component) {
         });
       });
 
-      if (!window.location.hash) {
+      var hash = window.location.hash;
+      if (!hash || hash.substring(1) === _this.props.anchors[0]) {
         _this.addActiveClass()
       }
 
