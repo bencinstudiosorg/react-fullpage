@@ -88,7 +88,7 @@ class SectionsContainer extends Component {
 
   removeActiveClass = () => {
     let activeLinks = document.querySelectorAll(
-        this.props.anchors[this.state.activeSection].includes("#")
+        this.props.anchors[this.state.activeSection] != null && this.props.anchors[this.state.activeSection].includes("#")
             ? `a:not([href="${this.props.anchors[this.state.activeSection]}"])`
             : `a:not([href="#${this.props.anchors[this.state.activeSection]}"])`
     );
@@ -350,7 +350,7 @@ class SectionsContainer extends Component {
 
       return (
         <a
-          href={link.includes("#") ? `${link}`: `#${link}`}
+          href={window.location.pathname + (link.includes("#") ? `${link}`: `#${link}`)}
           key={index}
           className={this.props.navigationAnchorClass || 'Navigation-Anchor'}
           style={this.props.navigationAnchorClass ? null : anchorStyle}

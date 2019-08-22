@@ -61,7 +61,10 @@ var SectionsContainer = function (_Component) {
         activeLinks[i].className = activeLinks[i].className + (activeLinks[i].className.length > 0 ? ' ' : '') + ('' + _this.props.activeClass);
       }
     }, _this.removeActiveClass = function () {
-        var activeLinks = document.querySelectorAll(_this.props.anchors[_this.state.activeSection].includes("#") ? 'a:not([href="' + _this.props.anchors[_this.state.activeSection] + '"])' : 'a:not([href="#' + _this.props.anchors[_this.state.activeSection] + '"])');
+        var activeLinks = document.querySelectorAll(_this.props.anchors[_this.state.activeSection] != null
+            && _this.props.anchors[_this.state.activeSection].includes("#")
+            ? 'a:not([href="' + _this.props.anchors[_this.state.activeSection] + '"])'
+            : 'a:not([href="#' + _this.props.anchors[_this.state.activeSection] + '"])');
 
       for (var i = 0; i < activeLinks.length; i++) {
         activeLinks[i].className = activeLinks[i].className.replace(/\b ?active/g, '');
@@ -248,7 +251,7 @@ var SectionsContainer = function (_Component) {
         };
 
         return _react2.default.createElement('a', {
-          href: link.includes("#") ? link : '#' + link,
+          href: window.location.pathname + (link.includes("#") ? link : '#' + link),
           key: index,
           className: _this.props.navigationAnchorClass || 'Navigation-Anchor',
           style: _this.props.navigationAnchorClass ? null : anchorStyle
