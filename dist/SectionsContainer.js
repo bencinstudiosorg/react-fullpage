@@ -199,7 +199,10 @@ var SectionsContainer = function (_Component) {
               window.location.hash = '#' + hash;
             }
 
+              
+            that.setAnchor(direction);
             that.handleSectionTransition(direction);
+            that.addActiveClass();
           }
         }
         handleswipe(swipedir);
